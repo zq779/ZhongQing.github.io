@@ -4,235 +4,891 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>钟晴 | Qing Zhong</title>
+  <meta name="description" content="Qing Zhong - AI Agent Security, Cryptography, Cybersecurity" />
   <style>
+    :root {
+      --bg: #050816;
+      --bg2: #07111f;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-strong: rgba(255, 255, 255, 0.13);
+      --text: #eaf2ff;
+      --muted: #a9b8d3;
+      --blue: #60a5fa;
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --pink: #f472b6;
+      --green: #34d399;
+      --border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: "Inter", "Microsoft YaHei", sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      color: #e5e7eb;
-      line-height: 1.7;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(96, 165, 250, 0.22), transparent 34%),
+        radial-gradient(circle at 85% 20%, rgba(167, 139, 250, 0.22), transparent 30%),
+        radial-gradient(circle at 55% 90%, rgba(34, 211, 238, 0.16), transparent 38%),
+        linear-gradient(135deg, var(--bg), var(--bg2) 56%, #0b1022);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 85%);
+      z-index: -3;
+    }
+
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .spotlight {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.17), rgba(167,139,250,0.08) 42%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(10px);
+      transition: opacity 0.2s ease;
     }
 
     .container {
-      width: 90%;
-      max-width: 1000px;
+      width: min(1120px, calc(100% - 36px));
       margin: 0 auto;
-      padding: 60px 0;
+      padding: 30px 0 70px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 18px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      margin-bottom: 48px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(7, 13, 30, 0.62);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+      box-shadow: 0 0 24px rgba(96,165,250,0.55);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 11px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
     }
 
     .hero {
-      text-align: center;
-      padding: 70px 20px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-      backdrop-filter: blur(12px);
-      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 1.14fr 0.86fr;
+      gap: 32px;
+      align-items: center;
+      min-height: 520px;
+      margin-bottom: 34px;
+    }
+
+    .hero-card,
+    .orb-card,
+    .section {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.055));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 44px;
+      border-radius: 34px;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(120deg, transparent, rgba(96,165,250,0.30), transparent, rgba(244,114,182,0.22), transparent);
+      transform: translateX(-65%);
+      animation: shine 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0%, 35% { transform: translateX(-70%); opacity: 0; }
+      50% { opacity: 1; }
+      70%, 100% { transform: translateX(70%); opacity: 0; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(96,165,250,0.13);
+      border: 1px solid rgba(96,165,250,0.24);
+      color: #cfe5ff;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(52,211,153,0.72);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.72); }
+      70% { box-shadow: 0 0 0 11px rgba(52,211,153,0); }
+      100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
     }
 
     .hero h1 {
-      font-size: 46px;
-      margin-bottom: 12px;
-      color: #ffffff;
+      font-size: clamp(42px, 7vw, 74px);
+      line-height: 1.02;
+      letter-spacing: -1.8px;
+      margin-bottom: 18px;
     }
 
-    .hero h2 {
-      font-size: 22px;
-      font-weight: 500;
-      color: #93c5fd;
-      margin-bottom: 20px;
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, #93c5fd 35%, #22d3ee 60%, #f0abfc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .type-line {
+      min-height: 32px;
+      color: #c7d2fe;
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 650;
+      margin-bottom: 18px;
+    }
+
+    .cursor {
+      color: var(--cyan);
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     .hero p {
-      max-width: 760px;
-      margin: 0 auto;
-      color: #cbd5e1;
+      color: var(--muted);
       font-size: 17px;
+      max-width: 690px;
+      margin-bottom: 26px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 17px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,0.07);
+      transition: 0.22s ease;
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(96,165,250,0.92), rgba(167,139,250,0.92));
+      border-color: rgba(255,255,255,0.24);
+      box-shadow: 0 16px 36px rgba(96,165,250,0.28);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(0,0,0,0.26);
+    }
+
+    .orb-card {
+      position: relative;
+      min-height: 470px;
+      border-radius: 34px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .orb-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(96,165,250,0.22), transparent 33%),
+        linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
+      pointer-events: none;
+    }
+
+    .orb {
+      position: relative;
+      width: min(320px, 72vw);
+      height: min(320px, 72vw);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 38% 32%, rgba(255,255,255,0.95), rgba(147,197,253,0.70) 15%, rgba(96,165,250,0.25) 36%, rgba(167,139,250,0.16) 55%, transparent 70%);
+      filter: drop-shadow(0 0 42px rgba(96,165,250,0.35));
+      animation: float 4.7s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .ring {
+      position: absolute;
+      border: 1px solid rgba(147,197,253,0.34);
+      border-radius: 50%;
+      inset: 8%;
+      animation: rotate 12s linear infinite;
+    }
+
+    .ring:nth-child(2) {
+      inset: 19%;
+      border-color: rgba(34,211,238,0.35);
+      animation-duration: 8s;
+      animation-direction: reverse;
+    }
+
+    .ring:nth-child(3) {
+      inset: -4%;
+      border-color: rgba(244,114,182,0.26);
+      animation-duration: 16s;
+    }
+
+    .ring::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    .orb-center {
+      z-index: 1;
+      text-align: center;
+      width: 174px;
+      height: 174px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(5,8,22,0.72);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 30px rgba(96,165,250,0.12);
+    }
+
+    .orb-center strong {
+      display: block;
+      font-size: 31px;
+      letter-spacing: 1px;
+    }
+
+    .orb-center span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mini-stats {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .stat {
+      padding: 13px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+
+    .stat b {
+      display: block;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 12px;
     }
 
     .section {
-      margin-top: 36px;
+      margin-top: 26px;
       padding: 32px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
     }
 
     .section h2 {
       font-size: 26px;
-      color: #bfdbfe;
-      margin-bottom: 18px;
-      border-left: 5px solid #60a5fa;
-      padding-left: 12px;
+      letter-spacing: -0.4px;
+    }
+
+    .section-title .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(96,165,250,0.55), transparent);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(96,165,250,0.40);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -85px;
+      top: -85px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.18), transparent 70%);
+    }
+
+    .card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 18px;
+      margin-bottom: 9px;
+      color: #fff;
+    }
+
+    .card p,
+    .card li {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .tag {
-      padding: 8px 14px;
+      padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(96, 165, 250, 0.18);
-      color: #bfdbfe;
-      font-size: 14px;
+      font-size: 13px;
+      color: #dbeafe;
+      background: rgba(96,165,250,0.12);
+      border: 1px solid rgba(96,165,250,0.18);
     }
 
-    .project {
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    .tag.purple { background: rgba(167,139,250,0.13); border-color: rgba(167,139,250,0.20); color: #ede9fe; }
+    .tag.cyan { background: rgba(34,211,238,0.12); border-color: rgba(34,211,238,0.20); color: #cffafe; }
+    .tag.green { background: rgba(52,211,153,0.12); border-color: rgba(52,211,153,0.20); color: #d1fae5; }
+    .tag.pink { background: rgba(244,114,182,0.12); border-color: rgba(244,114,182,0.20); color: #fce7f3; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 16px;
     }
 
-    .project:last-child {
-      border-bottom: none;
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: linear-gradient(var(--blue), var(--purple), transparent);
     }
 
-    .project h3 {
-      color: #ffffff;
-      margin-bottom: 8px;
-      font-size: 20px;
+    .timeline-item {
+      position: relative;
+      padding-left: 38px;
     }
 
-    .project p {
-      color: #cbd5e1;
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px rgba(34,211,238,0.65);
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      color: #94a3b8;
-      font-size: 14px;
+    .timeline-item h3 {
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .timeline-item p {
+      color: var(--muted);
+    }
+
+    .contact-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 680px;
     }
 
     a {
       color: #93c5fd;
-      text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: 0.65s ease;
     }
 
-    @media (max-width: 700px) {
-      .hero h1 {
-        font-size: 34px;
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-      .hero h2 {
-        font-size: 18px;
-      }
+    footer {
+      text-align: center;
+      margin-top: 42px;
+      color: #8090ad;
+      font-size: 14px;
+    }
 
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .grid.cols-2,
+      .grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+      .orb-card {
+        min-height: 420px;
+      }
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 24px, 1120px);
+        padding-top: 18px;
+      }
+      .hero-card,
       .section {
         padding: 24px;
+        border-radius: 24px;
+      }
+      .mini-stats {
+        grid-template-columns: 1fr;
+      }
+      .orb-card {
+        padding-bottom: 190px;
       }
     }
   </style>
 </head>
-
 <body>
+  <canvas id="particles"></canvas>
+  <div class="spotlight" id="spotlight"></div>
+
   <div class="container">
-
-    <section class="hero">
-      <h1>钟晴 | Qing Zhong</h1>
-      <h2>AI Agent Security · Cryptography · Cybersecurity</h2>
-      <p>
-        我是山东大学密码科学与技术专业本科生，主要关注人工智能安全、智能体安全、
-        密码学、隐私计算与网络空间安全等方向。目前重点关注工具增强型 AI Agent 的
-        权限控制、安全执行、提示注入防御和可信行为审计机制。
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>Research Interests</h2>
-      <div class="tags">
-        <span class="tag">AI Agent Security</span>
-        <span class="tag">Tool-Augmented LLM Agents</span>
-        <span class="tag">Permission Control</span>
-        <span class="tag">Secure Execution</span>
-        <span class="tag">Prompt Injection Defense</span>
-        <span class="tag">Cryptographic Protocols</span>
-        <span class="tag">Privacy-Preserving Computing</span>
-        <span class="tag">Multi-Agent System Security</span>
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo">QZ</div>
+        <span>Qing Zhong</span>
       </div>
-    </section>
+      <div class="nav-links">
+        <a href="#interests">Interests</a>
+        <a href="#projects">Projects</a>
+        <a href="#focus">Focus</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
 
-    <section class="section">
-      <h2>Education</h2>
-      <p>
-        <strong>山东大学</strong>，密码科学与技术专业，本科在读。
-      </p>
-      <p>
-        主要课程包括：密码工程、区块链与数字货币、计算机网络、机器学习、
-        操作系统、隐私计算、算法设计与分析等。
-      </p>
-    </section>
-
-    <section class="section">
-      <h2>Selected Projects</h2>
-
-      <div class="project">
-        <h3>T-Owl：基于门限密码的 PAKE 协议设计与应用</h3>
+    <main class="hero">
+      <section class="hero-card reveal">
+        <div class="eyebrow"><span class="pulse"></span> AI Security · Cryptography · Cybersecurity</div>
+        <h1>钟晴<br /><span class="gradient-text">Qing Zhong</span></h1>
+        <div class="type-line"><span id="typewriter"></span><span class="cursor">|</span></div>
         <p>
-          围绕 PAKE 协议、门限密码、密钥协商和身份认证等内容展开，
-          关注安全协议设计、威胁模型分析和实际应用场景。
+          我是山东大学密码科学与技术专业本科生，关注人工智能安全、智能体安全、密码学、隐私计算与网络空间安全。
+          当前重点探索工具增强型 AI Agent 的权限控制、安全执行、提示注入防御和可信行为审计机制。
         </p>
-      </div>
+        <div class="actions">
+          <a class="btn primary" href="#focus">Explore My Focus →</a>
+          <a class="btn" href="mailto:zhongqing789@sdu.edu.cn">Contact Me</a>
+          <a class="btn" href="https://github.com/zq779" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </section>
 
-      <div class="project">
-        <h3>基于智能体实现的多机器狗协同任务安全控制系统</h3>
-        <p>
-          面向多智能体协同与具身智能安全场景，关注身份认证、通信安全、
-          指令可信和安全护栏机制。
-        </p>
-      </div>
+      <aside class="orb-card reveal">
+        <div class="orb">
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="orb-center">
+            <div>
+              <strong>AI Agent</strong>
+              <span>Security Research</span>
+            </div>
+          </div>
+        </div>
+        <div class="mini-stats">
+          <div class="stat"><b>Crypto</b><span>Protocols</span></div>
+          <div class="stat"><b>Agent</b><span>Security</span></div>
+          <div class="stat"><b>Privacy</b><span>Computing</span></div>
+        </div>
+      </aside>
+    </main>
 
-      <div class="project">
-        <h3>OpenHiTLS 密码套件功能实现</h3>
-        <p>
-          参与华为 OpenHiTLS 库中密码套件相关功能实现，提升了对密码库实现、
-          接口设计和安全工程实践的理解。
-        </p>
+    <section class="section reveal" id="interests">
+      <div class="section-title">
+        <h2>Research Interests</h2>
+        <div class="line"></div>
       </div>
-
-      <div class="project">
-        <h3>个性化本地差分隐私</h3>
-        <p>
-          关注数据收集与分析过程中的隐私保护问题，进一步加深了对隐私计算
-          和数据安全方向的兴趣。
-        </p>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>AI Agent Security</h3>
+          <p>关注工具调用、权限边界、任务执行链路和智能体行为可控性。</p>
+          <div class="tags"><span class="tag cyan">Tool Use</span><span class="tag purple">Agentic AI</span></div>
+        </div>
+        <div class="card">
+          <h3>Permission Control</h3>
+          <p>研究细粒度访问控制、动态授权、高风险操作确认与安全执行机制。</p>
+          <div class="tags"><span class="tag">Access Control</span><span class="tag green">Audit</span></div>
+        </div>
+        <div class="card">
+          <h3>Prompt Injection Defense</h3>
+          <p>探索外部不可信内容隔离、间接提示注入检测和上下文安全边界。</p>
+          <div class="tags"><span class="tag pink">Prompt Injection</span><span class="tag cyan">Context Isolation</span></div>
+        </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>Current Focus</h2>
-      <p>
-        当前我重点关注：
-        <strong>面向工具增强型 AI Agent 的权限控制与安全执行机制研究。</strong>
-      </p>
-      <p>
-        希望未来将密码学、安全协议、访问控制和人工智能安全结合起来，
-        探索更加可信、可控、可审计的智能体系统安全机制。
-      </p>
+    <section class="section reveal" id="projects">
+      <div class="section-title">
+        <h2>Selected Projects</h2>
+        <div class="line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>T-Owl：基于门限密码的 PAKE 协议设计与应用</h3>
+          <p>围绕 PAKE 协议、门限密码、密钥协商和身份认证展开，关注安全协议设计、威胁模型分析和实际系统需求。</p>
+        </div>
+        <div class="timeline-item">
+          <h3>基于智能体实现的多机器狗协同任务安全控制系统</h3>
+          <p>面向多智能体协同与具身智能安全场景，关注身份认证、通信安全、指令可信和安全护栏机制。</p>
+        </div>
+        <div class="timeline-item">
+          <h3>OpenHiTLS 密码套件功能实现</h3>
+          <p>参与密码套件相关功能实现，提升对密码库工程化实现、接口设计和安全软件开发的理解。</p>
+        </div>
+        <div class="timeline-item">
+          <h3>个性化本地差分隐私</h3>
+          <p>关注数据收集与分析过程中的隐私保护问题，加深对隐私计算和数据安全方向的兴趣。</p>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:zhongqing789@sdu.edu.cn">zhongqing789@sdu.edu.cn</a></p>
-      <p>GitHub: <a href="https://github.com/zq779">https://github.com/zq779</a></p>
+    <section class="section reveal" id="focus">
+      <div class="section-title">
+        <h2>Current Focus</h2>
+        <div class="line"></div>
+      </div>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>面向工具增强型 AI Agent 的权限控制与安全执行机制研究</h3>
+          <p>
+            我希望将密码学、安全协议、访问控制和人工智能安全结合起来，探索更加可信、可控、可审计的智能体系统安全机制。
+          </p>
+        </div>
+        <div class="card">
+          <h3>Research Keywords</h3>
+          <div class="tags">
+            <span class="tag">AI Agent Security</span>
+            <span class="tag cyan">Secure Execution</span>
+            <span class="tag purple">Permission Control</span>
+            <span class="tag pink">Prompt Injection</span>
+            <span class="tag green">Cryptography</span>
+            <span class="tag">Privacy Computing</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <div class="footer">
-      © 2026 Qing Zhong · Built with GitHub Pages
-    </div>
+    <section class="section reveal" id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <div class="line"></div>
+      </div>
+      <div class="contact-box">
+        <p>
+          I am interested in AI Agent Security, especially permission control, secure tool use,
+          prompt injection defense, and trustworthy execution mechanisms.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="mailto:zhongqing789@sdu.edu.cn">Email</a>
+          <a class="btn" href="https://github.com/zq779" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </section>
 
+    <footer>
+      © 2026 Qing Zhong · Built with GitHub Pages · Designed for AI Security Research
+    </footer>
   </div>
+
+  <script>
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('mousemove', (e) => {
+      spotlight.style.left = e.clientX + 'px';
+      spotlight.style.top = e.clientY + 'px';
+    });
+
+    const words = [
+      'AI Agent Security Researcher',
+      'Cryptography & Cybersecurity Student',
+      'Permission Control · Secure Execution',
+      'Prompt Injection Defense · Trusted Agents'
+    ];
+    const typeEl = document.getElementById('typewriter');
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeLoop() {
+      const word = words[wordIndex];
+      if (!deleting) {
+        typeEl.textContent = word.slice(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === word.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1150);
+          return;
+        }
+      } else {
+        typeEl.textContent = word.slice(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+      setTimeout(typeLoop, deleting ? 38 : 66);
+    }
+    typeLoop();
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth * devicePixelRatio;
+      canvas.height = window.innerHeight * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+      initParticles();
+    }
+
+    function initParticles() {
+      const count = Math.min(92, Math.floor(window.innerWidth / 16));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.42,
+        vy: (Math.random() - 0.5) * 0.42,
+        r: Math.random() * 1.6 + 0.6
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+        if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(147, 197, 253, 0.56)';
+        ctx.fill();
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(96, 165, 250, ${0.16 * (1 - dist / 120)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+  </script>
 </body>
 </html>
