@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>钟晴 | Qing Zhong</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #e5e7eb;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 0;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 70px 20px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .hero h2 {
+      font-size: 22px;
+      font-weight: 500;
+      color: #93c5fd;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #cbd5e1;
+      font-size: 17px;
+    }
+
+    .section {
+      margin-top: 36px;
+      padding: 32px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
+    }
+
+    .section h2 {
+      font-size: 26px;
+      color: #bfdbfe;
+      margin-bottom: 18px;
+      border-left: 5px solid #60a5fa;
+      padding-left: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(96, 165, 250, 0.18);
+      color: #bfdbfe;
+      font-size: 14px;
+    }
+
+    .project {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .project:last-child {
+      border-bottom: none;
+    }
+
+    .project h3 {
+      color: #ffffff;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .project p {
+      color: #cbd5e1;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    a {
+      color: #93c5fd;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero h2 {
+        font-size: 18px;
+      }
+
+      .section {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="hero">
+      <h1>钟晴 | Qing Zhong</h1>
+      <h2>AI Agent Security · Cryptography · Cybersecurity</h2>
+      <p>
+        我是山东大学密码科学与技术专业本科生，主要关注人工智能安全、智能体安全、
+        密码学、隐私计算与网络空间安全等方向。目前重点关注工具增强型 AI Agent 的
+        权限控制、安全执行、提示注入防御和可信行为审计机制。
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Research Interests</h2>
+      <div class="tags">
+        <span class="tag">AI Agent Security</span>
+        <span class="tag">Tool-Augmented LLM Agents</span>
+        <span class="tag">Permission Control</span>
+        <span class="tag">Secure Execution</span>
+        <span class="tag">Prompt Injection Defense</span>
+        <span class="tag">Cryptographic Protocols</span>
+        <span class="tag">Privacy-Preserving Computing</span>
+        <span class="tag">Multi-Agent System Security</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Education</h2>
+      <p>
+        <strong>山东大学</strong>，密码科学与技术专业，本科在读。
+      </p>
+      <p>
+        主要课程包括：密码工程、区块链与数字货币、计算机网络、机器学习、
+        操作系统、隐私计算、算法设计与分析等。
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Selected Projects</h2>
+
+      <div class="project">
+        <h3>T-Owl：基于门限密码的 PAKE 协议设计与应用</h3>
+        <p>
+          围绕 PAKE 协议、门限密码、密钥协商和身份认证等内容展开，
+          关注安全协议设计、威胁模型分析和实际应用场景。
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>基于智能体实现的多机器狗协同任务安全控制系统</h3>
+        <p>
+          面向多智能体协同与具身智能安全场景，关注身份认证、通信安全、
+          指令可信和安全护栏机制。
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>OpenHiTLS 密码套件功能实现</h3>
+        <p>
+          参与华为 OpenHiTLS 库中密码套件相关功能实现，提升了对密码库实现、
+          接口设计和安全工程实践的理解。
+        </p>
+      </div>
+
+      <div class="project">
+        <h3>个性化本地差分隐私</h3>
+        <p>
+          关注数据收集与分析过程中的隐私保护问题，进一步加深了对隐私计算
+          和数据安全方向的兴趣。
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Current Focus</h2>
+      <p>
+        当前我重点关注：
+        <strong>面向工具增强型 AI Agent 的权限控制与安全执行机制研究。</strong>
+      </p>
+      <p>
+        希望未来将密码学、安全协议、访问控制和人工智能安全结合起来，
+        探索更加可信、可控、可审计的智能体系统安全机制。
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:zhongqing789@sdu.edu.cn">zhongqing789@sdu.edu.cn</a></p>
+      <p>GitHub: <a href="https://github.com/zq779">https://github.com/zq779</a></p>
+    </section>
+
+    <div class="footer">
+      © 2026 Qing Zhong · Built with GitHub Pages
+    </div>
+
+  </div>
+</body>
+</html>
