@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>钟晴 | Qing Zhong</title>
   <meta name="description" content="Qing Zhong - AI Agent Security, Cryptography, Cybersecurity" />
+
   <style>
     :root {
       --bg: #050816;
@@ -151,7 +152,7 @@
     }
 
     .hero-card,
-    .orb-card,
+    .profile-card,
     .section {
       border: 1px solid var(--border);
       background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.055));
@@ -248,6 +249,22 @@
       margin-bottom: 26px;
     }
 
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 4px;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #dbeafe;
+      background: rgba(96,165,250,0.11);
+      border: 1px solid rgba(96,165,250,0.18);
+      font-size: 13px;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -280,37 +297,164 @@
       box-shadow: 0 18px 42px rgba(0,0,0,0.26);
     }
 
-    .orb-card {
+    .profile-card {
       position: relative;
       min-height: 470px;
       border-radius: 34px;
       overflow: hidden;
       display: grid;
       place-items: center;
-      padding: 28px;
+      padding: 34px 28px;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(96,165,250,0.22), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.055));
     }
 
-    .orb-card::after {
+    .profile-card::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 50% 48%, rgba(96,165,250,0.22), transparent 33%),
-        linear-gradient(135deg, rgba(255,255,255,0.05), transparent);
-      pointer-events: none;
+      inset: -2px;
+      background: conic-gradient(
+        from 180deg,
+        transparent,
+        rgba(96,165,250,0.35),
+        rgba(34,211,238,0.25),
+        rgba(167,139,250,0.35),
+        transparent
+      );
+      opacity: 0.45;
+      animation: rotate 12s linear infinite;
+      z-index: -1;
     }
 
-    .orb {
+    .photo-label {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #bfdbfe;
+      background: rgba(96,165,250,0.12);
+      border: 1px solid rgba(96,165,250,0.22);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+    }
+
+    .avatar-shell {
       position: relative;
-      width: min(320px, 72vw);
-      height: min(320px, 72vw);
+      width: min(285px, 68vw);
+      aspect-ratio: 1 / 1;
       border-radius: 50%;
+      padding: 7px;
+      background: conic-gradient(
+        from 120deg,
+        var(--blue),
+        var(--cyan),
+        var(--purple),
+        var(--pink),
+        var(--blue)
+      );
+      box-shadow:
+        0 0 42px rgba(96,165,250,0.35),
+        0 0 90px rgba(167,139,250,0.18);
+      animation: float 4.7s ease-in-out infinite;
+    }
+
+    .avatar-shell::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      border: 1px dashed rgba(147,197,253,0.42);
+      animation: rotate 16s linear infinite;
+    }
+
+    .avatar-shell::after {
+      content: "";
+      position: absolute;
+      inset: -34px;
+      border-radius: 50%;
+      border: 1px solid rgba(34,211,238,0.18);
+      animation: rotate 22s linear infinite reverse;
+    }
+
+    .avatar-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(5,8,22,0.88);
+      border: 4px solid rgba(5,8,22,0.82);
+    }
+
+    .avatar-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      z-index: 2;
+      filter: saturate(1.05) contrast(1.03);
+    }
+
+    .avatar-fallback {
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
+      font-size: 64px;
+      font-weight: 900;
+      color: #dbeafe;
+      letter-spacing: 2px;
       background:
-        radial-gradient(circle at 38% 32%, rgba(255,255,255,0.95), rgba(147,197,253,0.70) 15%, rgba(96,165,250,0.25) 36%, rgba(167,139,250,0.16) 55%, transparent 70%);
-      filter: drop-shadow(0 0 42px rgba(96,165,250,0.35));
-      animation: float 4.7s ease-in-out infinite;
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.18), transparent 30%),
+        linear-gradient(135deg, rgba(96,165,250,0.35), rgba(167,139,250,0.22));
+      z-index: 1;
+    }
+
+    .profile-info {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .profile-info h2 {
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .profile-info p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .profile-badges {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .profile-badge {
+      padding: 13px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .profile-badge b {
+      display: block;
+      color: #ffffff;
+      font-size: 15px;
+    }
+
+    .profile-badge span {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     @keyframes float {
@@ -318,95 +462,8 @@
       50% { transform: translateY(-14px); }
     }
 
-    .ring {
-      position: absolute;
-      border: 1px solid rgba(147,197,253,0.34);
-      border-radius: 50%;
-      inset: 8%;
-      animation: rotate 12s linear infinite;
-    }
-
-    .ring:nth-child(2) {
-      inset: 19%;
-      border-color: rgba(34,211,238,0.35);
-      animation-duration: 8s;
-      animation-direction: reverse;
-    }
-
-    .ring:nth-child(3) {
-      inset: -4%;
-      border-color: rgba(244,114,182,0.26);
-      animation-duration: 16s;
-    }
-
-    .ring::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 18px var(--cyan);
-    }
-
     @keyframes rotate {
       to { transform: rotate(360deg); }
-    }
-
-    .orb-center {
-      z-index: 1;
-      text-align: center;
-      width: 174px;
-      height: 174px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(5,8,22,0.72);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: inset 0 0 30px rgba(96,165,250,0.12);
-    }
-
-    .orb-center strong {
-      display: block;
-      font-size: 31px;
-      letter-spacing: 1px;
-    }
-
-    .orb-center span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .mini-stats {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      z-index: 3;
-    }
-
-    .stat {
-      padding: 13px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.075);
-      border: 1px solid rgba(255,255,255,0.12);
-      text-align: center;
-    }
-
-    .stat b {
-      display: block;
-      color: #fff;
-      font-size: 18px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 12px;
     }
 
     .section {
@@ -598,7 +655,7 @@
       .grid.cols-3 {
         grid-template-columns: 1fr;
       }
-      .orb-card {
+      .profile-card {
         min-height: 420px;
       }
       .nav {
@@ -620,15 +677,13 @@
         padding: 24px;
         border-radius: 24px;
       }
-      .mini-stats {
-        grid-template-columns: 1fr;
-      }
-      .orb-card {
-        padding-bottom: 190px;
+      .profile-card {
+        padding: 32px 22px;
       }
     }
   </style>
 </head>
+
 <body>
   <canvas id="particles"></canvas>
   <div class="spotlight" id="spotlight"></div>
@@ -640,7 +695,9 @@
         <span>Qing Zhong</span>
       </div>
       <div class="nav-links">
+        <a href="#about">About</a>
         <a href="#interests">Interests</a>
+        <a href="#education">Education</a>
         <a href="#projects">Projects</a>
         <a href="#focus">Focus</a>
         <a href="#contact">Contact</a>
@@ -653,9 +710,15 @@
         <h1>钟晴<br /><span class="gradient-text">Qing Zhong</span></h1>
         <div class="type-line"><span id="typewriter"></span><span class="cursor">|</span></div>
         <p>
-          我是山东大学密码科学与技术专业本科生，关注人工智能安全、智能体安全、密码学、隐私计算与网络空间安全。
+          我是山东大学网络空间安全学院密码科学与技术专业本科生，关注人工智能安全、智能体安全、密码学、隐私计算与网络空间安全。
           当前重点探索工具增强型 AI Agent 的权限控制、安全执行、提示注入防御和可信行为审计机制。
         </p>
+        <div class="hero-meta">
+          <span class="meta-pill">Shandong University</span>
+          <span class="meta-pill">Cryptographic Science and Technology</span>
+          <span class="meta-pill">Weighted Rank: 21/82</span>
+          <span class="meta-pill">CET-6: 550</span>
+        </div>
         <div class="actions">
           <a class="btn primary" href="#focus">Explore My Focus →</a>
           <a class="btn" href="mailto:zhongqing789@sdu.edu.cn">Contact Me</a>
@@ -663,25 +726,63 @@
         </div>
       </section>
 
-      <aside class="orb-card reveal">
-        <div class="orb">
-          <div class="ring"></div>
-          <div class="ring"></div>
-          <div class="ring"></div>
-          <div class="orb-center">
-            <div>
-              <strong>AI Agent</strong>
-              <span>Security Research</span>
-            </div>
+      <aside class="profile-card reveal">
+        <div class="photo-label">PROFILE</div>
+
+        <div class="avatar-shell">
+          <div class="avatar-inner">
+            <div class="avatar-fallback">QZ</div>
+            <img class="avatar-img" src="./avatar.jpg" alt="钟晴形象照" onerror="this.style.display='none';" />
           </div>
         </div>
-        <div class="mini-stats">
-          <div class="stat"><b>Crypto</b><span>Protocols</span></div>
-          <div class="stat"><b>Agent</b><span>Security</span></div>
-          <div class="stat"><b>Privacy</b><span>Computing</span></div>
+
+        <div class="profile-info">
+          <h2>钟晴 | Qing Zhong</h2>
+          <p>Cryptography · AI Agent Security · Cybersecurity</p>
+        </div>
+
+        <div class="profile-badges">
+          <div class="profile-badge">
+            <b>SDU</b>
+            <span>School of Cyber Science and Technology</span>
+          </div>
+          <div class="profile-badge">
+            <b>AI Agent</b>
+            <span>Permission Control & Secure Execution</span>
+          </div>
+          <div class="profile-badge">
+            <b>Crypto</b>
+            <span>Protocols · Authentication · Privacy</span>
+          </div>
         </div>
       </aside>
     </main>
+
+    <section class="section reveal" id="about">
+      <div class="section-title">
+        <h2>About Me</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>个人简介</h3>
+          <p>
+            我是山东大学网络空间安全学院密码科学与技术专业本科生，主要关注人工智能安全、智能体安全、密码学、隐私计算与网络空间安全等方向。
+            当前重点关注工具增强型 AI Agent 的权限控制、安全执行、提示注入防御、可信身份认证和行为审计机制。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Research Vision</h3>
+          <p>
+            I aim to combine cryptography, access control, and AI security to build more trustworthy,
+            controllable, and auditable intelligent systems, especially for tool-augmented AI agents
+            and multi-agent systems.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <section class="section reveal" id="interests">
       <div class="section-title">
@@ -707,6 +808,47 @@
       </div>
     </section>
 
+    <section class="section reveal" id="education">
+      <div class="section-title">
+        <h2>Education & Skills</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Education</h3>
+          <p>
+            <strong>山东大学</strong><br />
+            网络空间安全学院<br />
+            密码科学与技术专业，本科在读
+          </p>
+          <div class="tags">
+            <span class="tag">Weighted Rank: 21/82</span>
+            <span class="tag cyan">CET-6: 550</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Relevant Coursework</h3>
+          <p>
+            密码工程、区块链与数字货币、计算机网络、机器学习、操作系统、隐私计算、算法设计与分析、高等数学。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Technical Skills</h3>
+          <div class="tags">
+            <span class="tag">C/C++</span>
+            <span class="tag">Python</span>
+            <span class="tag cyan">Git</span>
+            <span class="tag purple">Linux</span>
+            <span class="tag pink">LaTeX</span>
+            <span class="tag green">Markdown</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section reveal" id="projects">
       <div class="section-title">
         <h2>Selected Projects</h2>
@@ -723,11 +865,40 @@
         </div>
         <div class="timeline-item">
           <h3>OpenHiTLS 密码套件功能实现</h3>
-          <p>参与密码套件相关功能实现，提升对密码库工程化实现、接口设计和安全软件开发的理解。</p>
+          <p>参与华为 OpenHiTLS 库中密码套件相关功能实现，提升对密码库工程化实现、接口设计和安全软件开发的理解。</p>
         </div>
         <div class="timeline-item">
-          <h3>个性化本地差分隐私</h3>
-          <p>关注数据收集与分析过程中的隐私保护问题，加深对隐私计算和数据安全方向的兴趣。</p>
+          <h3>个性化本地差分隐私项目</h3>
+          <p>关注数据收集与分析过程中的隐私保护问题，加深对隐私计算、数据安全和可信人工智能方向的兴趣。</p>
+        </div>
+        <div class="timeline-item">
+          <h3>“梦寐以求”——神经刺激系列装置治疗呼吸睡眠障碍</h3>
+          <p>参与医学交叉创新项目，拓展医学工程与智能设备方向视野，项目获得全国大学生创新创业比赛省级金奖。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="highlights">
+      <div class="section-title">
+        <h2>Awards & Highlights</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>竞赛与项目成果</h3>
+          <p>
+            参与“梦寐以求——神经刺激系列装置治疗呼吸睡眠障碍”项目，获全国大学生创新创业比赛省级金奖；
+            参与个性化本地差分隐私项目，在相关竞赛中获得院级第一名。
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>学生工作与综合能力</h3>
+          <p>
+            担任班级团支书和校学生会文体活动部部长，具备较好的组织协调能力、团队合作意识和项目推进能力，
+            能够在科研实践与团队协作中持续投入。
+          </p>
         </div>
       </div>
     </section>
